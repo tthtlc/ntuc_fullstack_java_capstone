@@ -1,6 +1,5 @@
-
-##npm install react-router-dom jwt-decode
-##npm install 
+npm install 
+npm install react-router-dom jwt-decode
 npm run dev
 
 

@@ -1,8 +1,7 @@
-
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -22,12 +21,13 @@ const Login = () => {
         navigate('/member-dashboard');
       }
     } catch (err) {
-      setError('Login failed');
+      console.error('Login error:', err); // Verbose console logging
+      setError(err.response?.data?.message || err.message || 'Login failed');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ /* inline CSS */ padding: '20px', maxWidth: '400px', margin: 'auto' }}>
+    <form onSubmit={handleSubmit} style={{ padding: '20px', maxWidth: '400px', margin: 'auto' }}>
       <h2>Login</h2>
       <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required style={{ display: 'block', margin: '10px 0' }} />
       <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required style={{ display: 'block', margin: '10px 0' }} />

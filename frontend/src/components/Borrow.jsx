@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -13,7 +12,8 @@ const Borrow = () => {
         const response = await axios.get('http://localhost:8080/api/books/available');
         setBooks(response.data);
       } catch (err) {
-        setError('Failed to load books');
+        console.error('Available books load error:', err); // Verbose console logging
+        setError(err.response?.data?.message || err.message || 'Failed to load books');
       }
     };
     fetchAvailableBooks();
@@ -29,7 +29,8 @@ const Borrow = () => {
       const response = await axios.get('http://localhost:8080/api/books/available');
       setBooks(response.data);
     } catch (err) {
-      setError(err.response?.data?.message || 'Borrow failed');
+      console.error('Borrow error:', err); // Verbose console logging
+      setError(err.response?.data?.message || err.message || 'Borrow failed');
     }
   };
 

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -12,7 +11,8 @@ const Loans = () => {
         const response = await axios.get('http://localhost:8080/api/loans/my');
         setLoans(response.data);
       } catch (err) {
-        setError('Failed to load loans');
+        console.error('Loans load error:', err); // Verbose console logging
+        setError(err.response?.data?.message || err.message || 'Failed to load loans');
       }
     };
     fetchLoans();
@@ -26,7 +26,8 @@ const Loans = () => {
       const response = await axios.get('http://localhost:8080/api/loans/my');
       setLoans(response.data);
     } catch (err) {
-      alert('Renew failed');
+      console.error('Renew error:', err); // Verbose console logging
+      alert(err.response?.data?.message || err.message || 'Renew failed');
     }
   };
 
@@ -38,7 +39,8 @@ const Loans = () => {
       const response = await axios.get('http://localhost:8080/api/loans/my');
       setLoans(response.data);
     } catch (err) {
-      alert('Return failed');
+      console.error('Return error:', err); // Verbose console logging
+      alert(err.response?.data?.message || err.message || 'Return failed');
     }
   };
 

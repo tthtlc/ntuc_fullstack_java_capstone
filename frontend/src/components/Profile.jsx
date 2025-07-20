@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -19,7 +18,8 @@ const Profile = () => {
         setEmail(response.data.email);
         setUsername(response.data.username);
       } catch (err) {
-        setError('Failed to load profile');
+        console.error('Profile load error:', err); // Verbose console logging
+        setError(err.response?.data?.message || err.message || 'Failed to load profile');
       }
     };
     fetchProfile();
@@ -31,7 +31,8 @@ const Profile = () => {
       await axios.put('http://localhost:8080/api/members/me', { name, email, username, password });
       alert('Profile updated');
     } catch (err) {
-      setError('Update failed');
+      console.error('Profile update error:', err); // Verbose console logging
+      setError(err.response?.data?.message || err.message || 'Update failed');
     }
   };
 
